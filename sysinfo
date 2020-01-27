@@ -1,0 +1,129 @@
+#!/bin/bash
+# System info script made by Goldenpixel on the 10th January of 2020
+
+
+# Color kit
+NOCOLOR='\033[0m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+LIGHTGRAY='\033[0;37m'
+DARKGRAY='\033[1;30m'
+LIGHTRED='\033[1;31m'
+LIGHTGREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+LIGHTBLUE='\033[1;34m'
+LIGHTPURPLE='\033[1;35m'
+LIGHTCYAN='\033[1;36m'
+WHITE='\033[1;37m'
+
+SPACE="------------------------------------------------------------"
+
+softwaremonitor(){
+	echo $SPACE
+	echo "USB Devices"
+	echo $SPACE
+
+	echo -e "${GREEN}$(lsusb)${NOCOLOR}"
+
+	echo $SPACE
+	echo "RAM & Swap Usage"
+	echo $SPACE
+
+	echo -e "${CYAN}$(free -h)${NOCOLOR}"
+
+	echo $SPACE
+	echo "Drives & Disk Usage"
+	echo $SPACE
+
+	echo -e "${LIGHTRED}$(df -h)\n${NOCOLOR}$SPACE\n${LIGHTPURPLE}$(lsblk)${NOCOLOR}"
+
+	echo $SPACE
+	echo "Mini-info"
+	echo $SPACE
+
+	echo -e "${BLUE}Linux kernel${NOCOLOR}: $(uname -r)"
+	echo -e "${LIGHTRED}Hostname${NOCOLOR}: $(cat /etc/hostname)"
+	echo -e "${YELLOW}Processor Architecture${NOCOLOR}: $(uname -p)"
+
+	echo -e "\nType sysinfo --hardware to look at hardware informations"
+}
+
+setupmanual(){
+	echo "sysinfo : Shows software information" >> ~/.sysinfo-manual.txt
+	echo "sysinfo --hardware : Shows very long hardware information" >> ~/.sysinfo-manual.txt
+	echo ">> sysinfo --hardware --short : Shows shorter hardware information" >> ~/.sysinfo-manual.txt
+	echo ">>>> sysinfo --hardware --short --get-motherboard : Shows the computer's motherboard name" >> ~/.sysinfo-manual.txt
+	echo ">>>> sysinfo --hardware --short --get-disks : Shows the computer's disks" >> ~/.sysinfo-manual.txt
+	echo ">>>> sysinfo --hardware --short --get-processors : Shows the computer's processor(s)" >> ~/.sysinfo-manual.txt
+
+	echo "" >> ~/.sysinfo-manual.txt
+	echo "You can type sysinfo --updatemanual to update the manual if it gets edited." >> ~/.sysinfo-manual.txt
+}
+
+updatemanual(){
+	rm ~/.sysinfo-manual.txt
+	setupmanual
+}
+
+hardwaremonitor(){
+	sudo lshw
+}
+
+shorthardwaremonitor() {
+	sudo lshw -short
+}
+
+if [[ "$1" == "--updatemanual" ]]; then
+	updatemanual
+fi
+
+if [[ "$1" == "" ]]; then
+	softwaremonitor
+	echo "Type sysinfo --manualsetup to write the manual to ~/.sysinfo-manual.txt"
+fi
+
+if [[ "$1" == "--manualsetup" ]]; then
+	setupmanual
+fi
+
+if [[ "$1" == "--hardware" ]]; then
+	if [[ "$2" == "--short" ]]; then
+		if [[ "$3" == "--get-motherboard" ]]; then
+			echo -e "${LIGHTRED}Printing short hardware informations"
+			echo -e "${LIGHTRED}This operation will require Administrator privileges${NOCOLOR}"
+			shorthardwaremonitor | grep "/0                                           bus "
+		fi
+
+		if [[ "$3" == "--get-disks" ]]; then
+			echo -e "${LIGHTRED}Printing short hardware informations"
+			echo -e "${LIGHTRED}This operation will require Administrator privileges${NOCOLOR}"
+			shorthardwaremonitor | grep "disk"
+		fi
+
+		if [[ "$3" == "--get-processors" ]]; then
+			echo -e "${LIGHTRED}Printing short hardware informations"
+			echo -e "${LIGHTRED}This operation will require Administrator privileges${NOCOLOR}"
+			shorthardwaremonitor | grep "processor"
+		fi
+
+		if [[ "$3" == "" ]]; then
+			echo -e "${LIGHTRED}Printing short hardware informations"
+			echo -e "${LIGHTRED}This operation will require Administrator privileges${NOCOLOR}"
+			shorthardwaremonitor
+		fi
+	else
+		echo -e "${LIGHTRED}Printing hardware informations"
+		echo -e "${LIGHTRED}This operation will require Administrator privileges${NOCOLOR}"
+		hardwaremonitor
+	fi
+fi
+
+if [[ "$1" == "--manual" ]]; then
+	cat ~/.sysinfo-manual.txt
+fi
+
+echo "You can type sysinfo --manual to read the manual"

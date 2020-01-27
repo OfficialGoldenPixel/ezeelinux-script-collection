@@ -40,7 +40,9 @@ check on the status of my server.
 > sysinfo
 
 *Added by OfficialGoldenPixel*
+
 Improved version of the chksys script.
+
 **I'm still fixing some bugs**
 
 > nr 

@@ -37,6 +37,12 @@ will prompt you if sudo privileges are required.
 This script give you vital system information. I wrote it to quickly
 check on the status of my server.
 
+> sysinfo
+
+*Added by OfficialGoldenPixel*
+Improved version of the chksys script.
+**I'm still fixing some bugs**
+
 > nr 
 
 This alias restarts Network Manager in Ubuntu and Linux Mint. It can be

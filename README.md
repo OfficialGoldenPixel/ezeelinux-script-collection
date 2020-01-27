@@ -1,5 +1,5 @@
 # ezeelinux-script-collection
-Costume scripts and aliases that you can adapt to your own needs.
+Custom scripts and aliases that you can adapt to your own needs.
 
 Introduction
 
@@ -27,6 +27,8 @@ command, at a terminal. Make sure the script is executable in a File
 Manager and it's ready to use. Keep in mind that scripts in your bin 
 will not be seen by the system if you issue them with sudo. The system 
 will prompt you if sudo privileges are required.
+
+If the script is not executable, you can cd into your bin folder, and type `chmod +x [script` in your terminal (replacing [script] by your script.)
 
 The Scripts
 

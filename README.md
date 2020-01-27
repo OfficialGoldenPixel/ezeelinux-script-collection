@@ -45,6 +45,12 @@ Improved version of the chksys script.
 
 **I'm still fixing some bugs**
 
+> brave-installer.sh
+
+*Added by OfficialGoldenPixel*
+
+Installs Brave browser, (see more at https://brave.com/)
+
 > nr 
 
 This alias restarts Network Manager in Ubuntu and Linux Mint. It can be
